@@ -15,12 +15,9 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
-// ✅ Serve the frontend files from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
-
 // ✅ Serve "main.html" when users visit the root URL
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'main.html'));
+    res.sendFile(path.join(__dirname, 'main.html'));
 });
 
 // ✅ API to Save or Update Notes
