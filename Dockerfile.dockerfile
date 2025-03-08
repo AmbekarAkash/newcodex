@@ -1,25 +1,25 @@
-# Use official Node.js as the base image
+# Use official Node.js image
 FROM node:18
 
-# Set the working directory inside the container
+# Set working directory inside the container
 WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install backend dependencies
+# Install dependencies
 RUN npm install
 
 # Copy backend files
 COPY server.js . 
 
-# Create a folder for the frontend
+# Create public folder for frontend
 RUN mkdir public
 
-# Copy frontend files into the public directory
+# Copy frontend files to the public directory
 COPY main.html public/
 
-# Expose the port the app runs on
+# Expose the application port
 EXPOSE 3000
 
 # Start the server
