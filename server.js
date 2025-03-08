@@ -15,10 +15,15 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
-// Serve the frontend
-app.use(express.static('public'));
+// ✅ Serve the frontend files from the "public" directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-// API to Save or Update Notes
+// ✅ Serve "main.html" when users visit the root URL
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'main.html'));
+});
+
+// ✅ API to Save or Update Notes
 app.post('/save', async (req, res) => {
     const { access_code, content } = req.body;
 
@@ -49,7 +54,7 @@ app.post('/save', async (req, res) => {
     }
 });
 
-// API to Retrieve Notes
+// ✅ API to Retrieve Notes
 app.get("/getNote", async (req, res) => {
     const accessCode = req.query.accessCode;
 
@@ -70,11 +75,6 @@ app.get("/getNote", async (req, res) => {
         console.error("Database Error:", err);
         res.status(500).json({ success: false, message: "Database error" });
     }
-});
-
-// Serve main.html as the default page
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'main.html'));
 });
 
 // Start Server
