@@ -10,12 +10,11 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install
 
-# Copy all backend files
+# Copy backend files
 COPY server.js . 
 
-# Create public directory and copy frontend files
-RUN mkdir -p public
-COPY public/ public/
+# ✅ Copy frontend file (main.html) to the root directory
+COPY main.html . 
 
 # Expose the application port
 EXPOSE 3000
